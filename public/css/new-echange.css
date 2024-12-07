@@ -1,0 +1,91 @@
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.briques {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1px;
+    margin: 0;
+    padding: 1px;
+}
+
+.briques li {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 1.2rem;
+    box-shadow: 0 0 0 1px #888;
+}
+
+.briques img {
+    justify-self: center;
+    grid-column: 1 / span 2;
+    max-width: 100%;
+}
+
+.briques .nom {
+    grid-column: 1 / span 2;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.briques .couleur {
+    font-weight: bold;
+    text-align: left;
+}
+
+.briques .valeur {
+    font-weight: bold;
+    text-align: right;
+}
+
+.briques .couleur div, .briques .valeur div {
+    font-weight: normal;
+    color: #888888;
+    font-size: .8rem;
+}
+
+.briques input {
+    grid-column: 1 / span 2;
+    padding: .5rem;
+    border: 1px solid #888;
+    border-radius: 2px;
+}
+
+.colle-bas {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    position: sticky;
+    bottom: 0;
+    margin-bottom: -1rem;
+    background-color: #fff;
+}
+
+.colle-bas input {
+    width: 100%;
+    padding: 1rem;
+}
+
+.colle-bas input[type=text] {
+    border: 1px solid #888;
+    border-radius: 2px;
+    box-shadow: 0 0 .5rem .5rem #fff;
+}
+
+.colle-bas input[type=submit] {
+    margin-bottom: 1rem;
+    background-color: #e41f10;
+    color: #fff;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+.briques input.erreur, .colle-bas input[type=text].erreur {
+    border-color: #c00;
+}

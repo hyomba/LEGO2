@@ -1,0 +1,19 @@
+<h2>{{echange.nom_echange}}</h2>
+
+<div class="utilisateur">{{echange.nom}}, {{echange.prenom}}</div>
+
+<ul>
+    {{#each echange.briques}}
+        <li>
+            <img src="/assets/{{this.image}}" alt="{{this.nom}} - {{this.couleur}}">
+            <div class="nom">{{this.nom}} - {{this.couleur}}</div>
+            <div class="valeur">Quantité: {{this.quantite}}</div>
+            <div class="quantite">Valeur unitaire: {{this.valeur}}$</div>
+        </li>
+    {{/each}}
+</ul>
+
+<div class="total">
+    <div>Valeur globale approximative:</div>
+    <div>{{echange.valeur_totale}}$</div>
+</div>
