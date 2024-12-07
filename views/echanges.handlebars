@@ -5,11 +5,16 @@
         <li>
             <div>{{this.nom_echange}}</div>
             <div>{{this.nom}}, {{this.prenom}}</div>
-            <div><a href="/echange/{{this.id_echange}}">Voir l'échange</a></div>
+
+            {{#if user}}
+                 <div><a href="/echange/{{this.id_echange}}">Voir l'échange</a></div>
+            {{/if}}
         </li>
     {{/each}}
 </ul>
 
-<div class="colle-bas">
-    <a href="/echange">Créer un échange</a>
-<div>
+{{#if user}}
+  <div class="colle-bas">
+     <a href="/echange">Créer un échange</a>
+  <div>
+{{/if}}

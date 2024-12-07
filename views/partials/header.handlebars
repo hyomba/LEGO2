@@ -2,7 +2,20 @@
     <div class="wrapper">
         <h1><a href="/">Brique Échange</a></h1>
         <nav>
-            <a href="/utilisateur">Profil</a>
+            {{#if user}}
+              <a href="/utilisateur">Profil</a>
+            {{/if}}
+            {{#unless user}}
+              <a href="/connexion">connexion</a>
+             <a href="/inscription">inscription</a>
+            {{/unless}}
+
+            {{#if user}}
+             <form method="post" action="/api/deconnexion">
+                 <input type="submit" value="Déconnexion">
+             </form>   
+           {{/if}}
+        
         </nav>
     </div>
 </header>

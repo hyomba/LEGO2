@@ -95,10 +95,7 @@ async function createDatabase(connexion) {
         (6, 3811, 'Plaque de base 32X32 noir', 'plaque-base-32x32-noir.jpg', 12.85),
         (3, 3068, 'Tuile 2X2 bleu', 'tuile-2x2-bleu.jpg', 0.1),
         (2, 6141, 'Plaque ronde 1X1 jaune', 'plaque-ronde-1x1-jaune.jpg', 0.06),
-        (5, 3062, 'Brique ronde 1X1 blanc', 'brique-ronde-1x1-blanc.jpg', 0.08);
-        
-        INSERT INTO utilisateur (courriel, nom, prenom, mot_de_passe, acces)
-        VALUES ('test@test.com', 'Christiansen', 'Ole Kirk', 'Test1234', 1);`
+        (5, 3062, 'Brique ronde 1X1 blanc', 'brique-ronde-1x1-blanc.jpg', 0.08);`
     );
 
     return connexion;
