@@ -130,6 +130,98 @@ app.get('/echange/:id', async (request, response) => {
     });
 });
 
+// Route de la CREATION D'UNE PROPOSITION pour un échange
+app.get('/proposition/:idEchange', async (request, response) => {
+    const idEchange = parseInt(request.params.idEchange);
+    const utilisateur = request.session.utilisateur; // En supposant que nous utilisons des sessions pour identifier l’utilisateur connecté
+
+    // Vérifier que l'utilisateur est connecté
+    if (!utilisateur) {
+        return response.status(401).redirect('/login'); // Rediriger vers la page de login si l'utilisateur n'est pas connecté
+    }
+
+    // Valider l'ID de l'échange
+    if (!isIdValid(idEchange)) {
+        return response.status(400).end(); // Retourner 400 si l'ID est invalide
+    }
+
+    // Obtenir les informations de l'échange
+    const echange = await getEchangeById(idEchange);
+    if (!echange) {
+        return response.status(404).send('Échange non trouvé.'); // Retourner 404 si l'échange n'existe pas
+    }
+
+    // Vérifier que l'utilisateur n'est pas le propriétaire de l'échange
+    if (echange.id_utilisateur === utilisateur.id_utilisateur) {
+        return response.status(403).send('Vous ne pouvez pas créer une proposition pour votre propre échange.');
+    }
+
+    // Obtenir les briques disponibles
+    const briques = await getBriques();
+
+    // Rendre la vue pour créer une proposition
+    response.render('new-proposition', {
+        titre: 'Créer une proposition | Brique Échange',
+        styles: ['/css/new-proposition.css'],
+        scripts: ['/js/new-proposition.js'],
+        briques,
+        idEchange
+    });
+});
+
+// Route por la VISUALISATION D'UNE PROPOSITION pour un échange
+app.get('/proposition/visualiser/:idProposition', async (request, response) => {
+    const idProposition = parseInt(request.params.idProposition);
+    const utilisateur = request.session.utilisateur;
+
+    // Vérifier que l'utilisateur est connecté
+    if (!utilisateur) {
+        return response.status(401).redirect('/login');
+    }
+
+    // Valider l'ID de la proposition
+    if (!isIdValid(idProposition)) {
+        return response.status(400).send('ID de proposition invalide.');
+    }
+
+    // Obtenir les informations de la proposition
+    const proposition = await getPropositionById(idProposition);
+    if (!proposition) {
+        return response.status(404).send('Proposition non trouvée.');
+    }
+
+    // Obtenir les informations de l'échange pour lequel la proposition a été faite
+    const echange = await getEchangeById(proposition.id_echange);
+    if (!echange) {
+        return response.status(404).send('Échange non trouvé.');
+    }
+
+    // Vérifier que l'utilisateur est propriétaire de l'échange
+    if (echange.id_utilisateur !== utilisateur.id_utilisateur) {
+        return response.status(403).send('Vous ne pouvez pas visualiser une proposition pour un échange qui ne vous appartient pas.');
+    }
+
+    // Obtenir l'utilisateur qui a créé la proposition
+    const createurProposition = await getUtilisateurById(proposition.id_utilisateur);
+    
+    // Calculer la valeur totale de la proposition
+    const briques = await getBriquesDeProposition(idProposition);
+    let valeurTotale = 0;
+    briques.forEach((brique) => {
+        valeurTotale += brique.quantite * brique.valeur;
+    });
+
+    // Rendre la vue pour visualiser la proposition
+    response.render('visualiser-proposition', {
+        titre: 'Visualiser une proposition | Brique Échange',
+        styles: ['/css/new-proposition.css'],
+        echangeNom: echange.nom_echange,
+        createurNom: `${createurProposition.prenom} ${createurProposition.nom}`,
+        valeurTotale,
+        briques
+    });
+});
+
 app.post('/api/echange', async (request, response) => {
     if(isNomEchangeValid(request.body.nom) && isEchangeValid(request.body.briques)) {
        console.log(request.user["id_utilisateur"]);

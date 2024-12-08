@@ -1,0 +1,116 @@
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f9f9f9;
+    color: #222222;
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    max-width: 60rem;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #e41f10;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+ul.briques {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1px;
+    margin: 0;
+    padding: 1px;
+}
+
+ul.briques li {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 1.2rem;
+    box-shadow: 0 0 0 1px #888;
+    background-color: #fafafa;
+    border-radius: 5px;
+}
+
+ul.briques li img {
+    justify-self: center;
+    grid-column: 1 / span 2;
+    max-width: 100%;
+}
+
+ul.briques li .nom {
+    grid-column: 1 / span 2;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+ul.briques li .couleur,
+ul.briques li .valeur {
+    font-weight: bold;
+    color: #888;
+    font-size: 0.8rem;
+}
+
+ul.briques li input[type=number] {
+    grid-column: 1 / span 2;
+    padding: 0.5rem;
+    border: 1px solid #888;
+    border-radius: 2px;
+    width: 100%;
+}
+
+ul.briques li input.erreur {
+    border-color: #d9534f;
+}
+
+.colle-bas {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: sticky;
+    bottom: 0;
+    margin-bottom: -1rem;
+    background-color: #fff;
+}
+
+.colle-bas input[type=text] {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #888;
+    border-radius: 2px;
+    box-shadow: 0 0 0.5rem 0.5rem #fff;
+}
+
+.colle-bas input[type=submit] {
+    margin-bottom: 1rem;
+    background-color: #e41f10;
+    color: #fff;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 1rem;
+}
+
+.colle-bas input[type=submit]:hover {
+    background-color: #c9302c;
+}
+
+/* Styles pour les messages d'erreur */
+input.erreur {
+    border: 1px solid #d9534f;
+}
+
+div.erreur-message {
+    color: #d9534f;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
