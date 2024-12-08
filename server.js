@@ -36,9 +36,9 @@ app.use(cors());
 app.use(compression());
 app.use(json());
 app.use(session({
-    cookie: { maxAge: 3600000 },
+    cookie: { maxAge: 7200000 },
     name: process.env.npm_package_name,
-    store: new MemoryStore({ checkPeriod: 3600000 }),
+    store: new MemoryStore({ checkPeriod: 7200000 }),
     resave: false,
     saveUninitialized: false,
     secret: process.env.SESSION_SECRET
@@ -58,8 +58,9 @@ app.get('/', async (request, response) => {
     });
 });
 
+//Route de la page profil
 app.get('/utilisateur', async (request, response) => {
-    const idUtilisateur = request.user?.id_utilisateur;
+   const idUtilisateur = request.user?.id_utilisateur;
     const utilisateur = await getUtilisateurById(idUtilisateur);
     response.render('utilisateur', {
         titre: 'Profil | Brique Échange',
@@ -72,6 +73,7 @@ app.get('/utilisateur', async (request, response) => {
     });
 });
 
+//Créer un échange 
 app.get('/echange', async (request, response) => {
     response.render('new-echange', {
         titre: 'Créer un échange | Brique Échange',
@@ -81,6 +83,7 @@ app.get('/echange', async (request, response) => {
         user: request.user
     });
 });
+
 
 app.get('/inscription', (request, response) => {
     if(request.user) {
@@ -94,6 +97,7 @@ app.get('/inscription', (request, response) => {
        
     });
 });
+
 app.get('/connexion', (request, response) => {
     if(request.user) {
         response.redirect('/');
@@ -107,6 +111,7 @@ app.get('/connexion', (request, response) => {
     });
 });
 
+//Route pour voir les détails d'un échange spécifique
 app.get('/echange/:id', async (request, response) => {
     const echangeId = parseInt(request.params.id)
     if(!isIdValid(echangeId)) {

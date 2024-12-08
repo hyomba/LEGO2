@@ -9,6 +9,7 @@ export async function getUtilisateurById(idUtilisateur) {
 
     return utilisateur;
 }
+
 export async function getUtilisateurByCourriel(courriel) {
     const utilisateur = await connexion.get(
         'SELECT * FROM utilisateur WHERE courriel = ?',
@@ -21,7 +22,7 @@ export async function getUtilisateurByCourriel(courriel) {
 export async function addUtilisateur(courriel,nom,prenom,motdepasse) {
     const motdepasseHash = await hash(motdepasse, 10);
         const result = await connexion.run(
-            `INSERT INTO utilisateur( courriel, nom, prenom, mot_de_passe)
+            `INSERT INTO utilisateur(courriel, nom, prenom, mot_de_passe)
             VALUES(?, ?, ?, ?)`, 
             [courriel, nom, prenom, motdepasseHash]
         );
