@@ -1,0 +1,16 @@
+<h2>Proposition pour l'échange: {{echangeNom}}</h2>
+
+<p>Créé par: {{createurNom}}</p>
+<p>Valeur totale: {{valeurTotale}} €</p>
+
+<ul class="briques">
+    {{#each briques}}
+        <li>
+            <img src="/assets/{{this.image}}" alt="{{this.nom}}" />
+            <div class="nom">{{this.nom}}</div>
+            <div class="couleur">Couleur: <div>{{this.couleur}}</div></div>
+            <div class="quantite">Quantité: <div>{{this.quantite}}</div></div>
+            <div class="valeur">Valeur: <div>{{this.valeur}} €</div></div>
+        </li>
+    {{/each}}
+</ul>

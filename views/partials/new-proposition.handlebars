@@ -1,0 +1,19 @@
+<h2>Créer une proposition</h2>
+
+<form id="new-proposition" data-idEchange="{{idEchange}}" novalidate>
+    <ul class="briques">
+        {{#each briques}}
+            <li>
+                <img src="/assets/{{this.image}}" alt="{{this.nom}}" />
+                <div class="nom">{{this.nom}}</div>
+                <div class="couleur">Couleur <div>{{this.couleur}}</div></div>
+                <div class="valeur">Valeur <div>{{this.valeur}}</div></div>
+                <input type="number" value="0" data-id="{{this.id_brique}}">
+            </li>
+        {{/each}}
+    </ul>
+
+    <div class="colle-bas">
+        <input type="submit" value="Soumettre la proposition">
+    </div>
+</form>
