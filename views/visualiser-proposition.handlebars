@@ -1,16 +1,20 @@
-<h2>Proposition pour l'échange: {{echangeNom}}</h2>
+<h2>Voir tous les propositions</h2>
 
-<p>Créé par: {{createurNom}}</p>
-<p>Valeur totale: {{valeurTotale}} €</p>
-
-<ul class="briques">
-    {{#each briques}}
+<ul>
+    {{#each echanges}}
         <li>
-            <img src="/assets/{{this.image}}" alt="{{this.nom}}" />
-            <div class="nom">{{this.nom}}</div>
-            <div class="couleur">Couleur: <div>{{this.couleur}}</div></div>
-            <div class="quantite">Quantité: <div>{{this.quantite}}</div></div>
-            <div class="valeur">Valeur: <div>{{this.valeur}} €</div></div>
+            <div>{{this.nom_echange}}</div>
+            <div>{{this.nom}}, {{this.prenom}}</div>
+
+            {{#if user}}
+                 <div><a href="/echange/{{this.id_echange}}">Voir la proposition</a></div>
+            {{/if}}
         </li>
     {{/each}}
 </ul>
+
+{{#if user}}
+  <div class="colle-bas">
+     <a href="/proposition">Créer une proposition</a>
+  <div>
+{{/if}}

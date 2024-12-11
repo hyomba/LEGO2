@@ -2,7 +2,8 @@ import { connexion } from '../db/db.js'
 
 export async function createEchange(idUtilisateur, nom) {
     const result = await connexion.run(
-        `INSERT INTO echange(id_utilisateur, nom_echange) VALUES(?, ?)`, 
+        `INSERT INTO echange(id_utilisateur, nom_echange) VALUES(?, ?)
+       `, 
         [idUtilisateur, nom]
     );
 

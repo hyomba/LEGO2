@@ -1,4 +1,4 @@
-<h2>{{this.nom}},{{this.prenom}}</h2>
+<h2>{{this.nom}}, {{this.prenom}}</h2>
 
 <ul>
     {{#each echanges}}
@@ -6,6 +6,7 @@
             <div>{{this.nom_echange}}</div>
             <div>{{this.nom}}, {{this.prenom}}</div>
             <div><a href="/echange/{{this.id_echange}}">Voir l'échange</a></div>
+            <div><a href="/proposition{{this.id_proposition}}">Créer une proposition</a></div>
             <div><input type="button" data-id="{{this.id_echange}}" value="×"></div>
         </li>
     {{/each}}

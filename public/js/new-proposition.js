@@ -1,22 +1,32 @@
 const form = document.getElementById('new-proposition');
 const inputsQuantite = form.querySelectorAll('input[type=number]');
+const divNom = document.getElementsByClassName('nom'); 
+const erreurNom = document.getElementById('erreur-nom');
 
 function isFormulaireValid() {
-    let erreur = false;
-
-    // Vérifier que l'utilisateur est connecté et que le formulaire est valide
-    if (!userIsConnected()) {
-        erreur = true;
-        alert('Vous devez être connecté pour faire une proposition.');
-        return false;
+    if(divNom.validity.valid) {
+        divNom.classList.remove('erreur');
+        erreurNom.innerText = '';
     }
-
-    // Vérifier que les briques ont une quantité valide
-    if (Array.from(inputsQuantite).every((input) => input.value === '0')) {
+    else {
+        divNom.classList.add('erreur');
+        if(divNom.validity.valueMissing) {
+            divNom.innerText = 'Le champs de texte doit être remplis.';
+        }
+        else if(divNom.validity.tooShort) {
+            divNom.innerText = 'Le champs de texte doit contenir au moins 5 caractères.';
+        }
+        else if(divNom.validity.tooLong) {
+            divNom.innerText = 'Le champs de texte doit contenir au maximum 20 caractères.';
+        }
+    }
+    // Valiidité les champs de quantité
+    if(Array.from(inputsQuantite).every((input) => input.value === '0')) {
         erreur = true;
-        inputsQuantite.forEach((input) => input.classList.add('erreur'));
-    } else {
-        inputsQuantite.forEach((input) => input.classList.remove('erreur'));
+        inputsQuantite.forEach((input) => input.classList.add('erreur'))
+    }
+    else {
+        inputsQuantite.forEach((input) => input.classList.remove('erreur'))
     }
 
     return !erreur;
@@ -54,16 +64,10 @@ form.addEventListener('submit', async (event) => {
         body: JSON.stringify(data)
     });
 
-    // Redirection à la page d'accueil si tout a bien fonctionné
+    // Redirection à la page de toutes les prpositions si tout a bien fonctionné
     if (response.ok) {
-        location.href = '/';
-    } else {
-        alert('Erreur lors de la création de la proposition.');
-    }
+        location.href = '/propositions';
+    } 
 });
 
-// Fonction fictive pour vérifier si l'utilisateur est connecté
-function userIsConnected() {
-    // Remplacer avec une vraie vérification de l'utilisateur
-    return true;  // Ceci est seulement pour l'exemple
-}
+

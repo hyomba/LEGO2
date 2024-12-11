@@ -3,7 +3,13 @@
         <h1><a href="/">Brique Échange</a></h1>
         <nav>
             {{#if user}}
+
               <a href="/utilisateur">Profil</a>
+              <a href="/propositions">Les propositions </a>
+               <form method="post" action="/api/deconnexion">
+                 <input type="submit" value="Déconnexion">
+             </form>
+
             {{/if}}
 
             {{#unless user}}
@@ -11,11 +17,11 @@
              <a href="/inscription">Inscription</a>
             {{/unless}}
 
-            {{#if user}}
+           <!-- {{#if user}}
              <form method="post" action="/api/deconnexion">
                  <input type="submit" value="Déconnexion">
              </form>   
-           {{/if}}
+           {{/if}} -->
         
         </nav>
     </div>

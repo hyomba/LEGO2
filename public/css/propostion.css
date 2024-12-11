@@ -1,0 +1,61 @@
+h2 {
+    margin-bottom: .5rem;
+}
+
+.utilisateur {
+    color: #888;
+    font-size: 1.1rem;
+}
+
+ul {
+    list-style-type: none;
+    margin: 2rem 0;
+    padding: 0;
+}
+
+ul li {
+    display: grid;
+    grid-template-columns: 5rem 1fr auto;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    gap: 0 1rem;
+    padding: .5rem 0;
+}
+
+ul li:not(:last-child) {
+    border-bottom: 1px solid #888;
+}
+
+ul img {
+    grid-row: span 2;
+    width: 5rem;
+}
+
+ul .nom {
+    grid-row: span 2;
+    font-size: 1.2rem;
+}
+
+ul .valeur {
+    align-self: end;
+    justify-self: end;
+}
+
+ul .quantite {
+    align-self: start;
+}
+
+.total {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.total :first-child {
+    font-size: 1.2rem;
+}
+
+.total :last-child {
+    font-size: 2rem;
+}
