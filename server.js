@@ -18,7 +18,7 @@ import { getBriques } from './model/briques.js'
 import { isPropositionEchangeValid, isIdValid,validateCourriel,validateMotDePasse, isNomEchangePropositionValid} from './validation.js'
 import './authentification.js'
 import { addUtilisateur, getUtilisateurById } from './model/utilisateur.js'
-import { addToProposition, creerProposition, getPropositionById, getPropositions } from './model/proposition.js';
+import { addToProposition, creerProposition, getPropositionById, getPropositions} from './model/proposition.js';
 
 // Création du serveur web
 const app = express();
@@ -37,9 +37,9 @@ app.use(cors());
 app.use(compression());
 app.use(json());
 app.use(session({
-    cookie: { maxAge: 7200000 },
+    cookie: { maxAge: 9900000 },
     name: process.env.npm_package_name,
-    store: new MemoryStore({ checkPeriod: 7200000 }),
+    store: new MemoryStore({ checkPeriod: 9900000 }),
     resave: false,
     saveUninitialized: false,
     secret: process.env.SESSION_SECRET
@@ -60,15 +60,16 @@ app.get('/', async (request, response) => {
 });
 
 //Route de la page profil
+
 app.get('/utilisateur', async (request, response) => {
-   const idUtilisateur = request.user?.id_utilisateur;
+    const idUtilisateur = request.user?.id_utilisateur;
     const utilisateur = await getUtilisateurById(idUtilisateur);
     response.render('utilisateur', {
         titre: 'Profil | Brique Échange',
         styles: ['/css/echanges.css'],
         scripts: ['/js/utilisateur.js'],
-        //nom: utilisateur.nom,
-        prenom: utilisateur.prenom,
+        nom:utilisateur.nom,
+        prenom:utilisateur.prenom,
         echanges: await getEchangesByUtilisateur(idUtilisateur),
         user: request.user
     });
@@ -76,12 +77,13 @@ app.get('/utilisateur', async (request, response) => {
 
 //Créer un échange 
 app.get('/echange', async (request, response) => {
+    const echange = await getEchangeById(request.params.id);
     response.render('new-echange', {
         titre: 'Créer un échange | Brique Échange',
         styles: ['/css/new-echange.css'],
         scripts: ['/js/new-echange.js'],
         briques: await getBriques(),
-        user: request.user
+        echange: echange
     });
 });
 
@@ -112,17 +114,22 @@ app.get('/connexion', (request, response) => {
 });
 
 // Route pour voir toutes les propositions
-app.get('/propositions', async (request, response) => {
-    response.render('echanges', {
+app.get('propositions/:id_echange', async (request, response) => {
+    const idUtilisateur = request.user?.id_utilisateur;
+    const proposition = await getPropositionById(idUtilisateur);
+    response.render('propositions', {
         titre: 'Liste des propositions | Brique Échange',
         styles: ['/css/propositions.css'],
-        echanges: await getPropositions(),
+        proposition: proposition.nom,
+        proposition: proposition.prenom,
+        proposition: await getPropositions(idUtilisateur),
         user: request.user
     });
 });
 
+
 // Route pour créer une proposition
-app.get('/proposition', async (request, response) => {
+app.get('/proposition/:id', async (request, response) => {
     response.render('new-proposition', {
         titre: 'Créer une proposition | Brique Échange',
         styles: ['/css/new-proposition.css'],
@@ -192,7 +199,7 @@ app.post('/api/proposition', async (request, response) => {
     if(isNomEchangePropositionValid(request.body.nom) && isPropositionEchangeValid(request.body.briques)) {
        console.log(request.user["id_utilisateur"]);
 
-        const idProposition = await creerProposition(request.user["id_utilisateur"], request.body.nom);
+        const idProposition = await creerProposition(request.body.id_echange);
         Promise.all(request.body.briques.map(({ id_brique, quantite }) => 
             addToProposition(idProposition, id_brique, quantite)
         ));

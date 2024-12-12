@@ -1,6 +1,6 @@
 <h2>Créer une proposition</h2>
 
-<form id="new-proposition" data-idEchange="{{idEchange}}" novalidate>
+<form id="new-proposition" novalidate>
     <ul class="briques">
         {{#each briques}}
             <li>
@@ -14,8 +14,6 @@
     </ul>
 
     <div class="colle-bas">
-         <input type="text" name="nom" placeholder="Nom de la proposition" required minlength="7" maxlength="100">
         <input type="submit" value="Soumettre la proposition">
     </div>
 </form>
-<div id="erreur-nom"></div>

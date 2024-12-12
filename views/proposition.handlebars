@@ -1,0 +1,21 @@
+<h2>{{echange.nom}}, {{echange.prenom}}</h2>
+
+<ul>
+    {{#each proposition.briques}}
+        <li>
+            <img src="/assets/{{this.image}}" alt="{{this.nom}} - {{this.couleur}}">
+            <div class="nom">{{this.nom}} - {{this.couleur}}</div>
+            <div class="valeur">Quantité: {{this.quantite}}</div>
+            <div class="quantite">Valeur unitaire: {{this.valeur}}$</div>
+        </li>
+    {{/each}}
+</ul>
+
+<div class="total">
+    <div>Valeur globale approximative:</div>
+    <div>{{proposition.valeur_totale}}$</div>
+</div>
+
+<div class="colle-bas">
+     <a data-id = "{{echange.id_echange}}"><a href="/proposition/{{echange.id_echange}}">Créer une proposition</a>
+  <div>

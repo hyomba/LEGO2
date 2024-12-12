@@ -1,11 +1,11 @@
 import { connexion } from '../db/db.js'
 
 //Créer une proposition
-export async function creerProposition(idProposition, idUtilisateur) {
+export async function creerProposition(id_utilisateur, id_echange) {
     const result = await connexion.run(
-        `INSERT INTO proposition(id_proposition, id_utilisateur) 
+        `INSERT INTO proposition(id_utilisateur, id_echange) 
             VALUES(?, ?)`, 
-        [idProposition, idUtilisateur]
+        [id_utilisateur, id_echange ]
     );
 
     return result.lastID;
@@ -24,13 +24,14 @@ export async function getPropositionById(idProposition) {
     let [proposition, briques] = await Promise.all([
         // Requête pour récupérer les informations de la proposition et de l'échange
         connexion.get(
-            `SELECT e.id_echange, p.id_proposition, e.nom_echange, u.nom, u.prenom, 
+            `SELECT p.id_proposition, e.id_echange, e.nom_echange, u.nom, u.prenom, 
                     printf('%.2f', SUM(b.valeur * pb.quantite)) as valeur_totale
-            FROM echange e
-            INNER JOIN proposition p ON e.id_echange = p.id_echange
+            FROM proposition p
+            INNER JOIN utilisateur u ON p.id_utilisateur = u.id_utilisateur
+            INNER JOIN proposition e ON e.id_echange = p.id_echange
             INNER JOIN proposition_brique pb ON p.id_proposition = pb.id_proposition
             INNER JOIN brique b ON pb.id_brique = b.id_brique
-            INNER JOIN utilisateur u ON p.id_utilisateur = u.id_utilisateur
+            
             WHERE p.id_proposition = ?
             GROUP BY e.id_echange, p.id_proposition, e.nom_echange, u.nom, u.prenom`, 
             [idProposition]
@@ -56,16 +57,21 @@ export async function getPropositionById(idProposition) {
 }
 
 
-
-//Voir toutes les propositions
-//Voir toutes les propositions
-export async function getPropositions() {
+// Voir toutes les propositions
+export async function getPropositions(idEchange) {
     const propositions = await connexion.all(
-        `SELECT e.id_echange, e.nom_echange, u.id_utilisateur, e.id_proposition_accepte
-        FROM echange e
-        INNER JOIN utilisateur u ON e.id_utilisateur = u.id_utilisateur
-        LEFT JOIN proposition p ON e.id_proposition_accepte = p.id_proposition
-        `
+        `SELECT 
+        p.id_proposition,  
+        e.nom_echange, 
+        p.id_utilisateur, 
+        u.nom, 
+        u.prenom
+        FROM proposition p
+        INNER JOIN utilisateur u ON p.id_utilisateur = u.id_utilisateur
+        INNER JOIN echange e ON p.id_echange = p.id_echange
+        WHERE p.id_echange = ?`,
+
+        [idEchange]
     );
 
     return propositions;

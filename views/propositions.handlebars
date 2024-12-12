@@ -1,20 +1,20 @@
-<h2>Voir tous les propositions</h2>
+<h2>Propositions</h2>
 
 <ul>
-    {{#each echanges}}
+    {{#each proposition}}
         <li>
             <div>{{this.nom_echange}}</div>
             <div>{{this.nom}}, {{this.prenom}}</div>
 
             {{#if user}}
-                 <div><a href="/echange/{{this.id_echange}}">Voir la proposition</a></div>
+                 <div><a href="/proposition/{{this.id_proposition}}">Voir la proposition</a></div>
             {{/if}}
         </li>
     {{/each}}
 </ul>
 
-{{#if user}}
+{{#unless user}}
   <div class="colle-bas">
      <a href="/proposition">Créer une proposition</a>
   <div>
-{{/if}}
+{{/unless}}

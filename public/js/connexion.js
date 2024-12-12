@@ -3,9 +3,8 @@ const inputCourriel = document.getElementById('input-courriel');
 const inputMotDePasse = document.getElementById('input-motdepasse');
 const erreurAuth = document.getElementById('erreur-auth');
 
-/*function isFormulaireValid() {
+function isFormulaireValid() {
     let erreur = false;
-
 
     // Vérification de l'email
     if(form.elements['input-courriel'].validity.valueMissing || 
@@ -27,7 +26,7 @@ const erreurAuth = document.getElementById('erreur-auth');
     }
 
     return !erreur;
-}*/
+}
 
 async function connexion(event) {
     event.preventDefault();

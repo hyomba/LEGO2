@@ -59,3 +59,16 @@ ul .quantite {
 .total :last-child {
     font-size: 2rem;
 }
+
+.colle-bas a {
+    display: block;
+    width: 30%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #e41f10;
+    color: #fff;
+    font-size: 1 rem;
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 0 0 .5rem .5rem #fff;
+}

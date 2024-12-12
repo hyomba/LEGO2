@@ -1,25 +1,9 @@
 const form = document.getElementById('new-proposition');
 const inputsQuantite = form.querySelectorAll('input[type=number]');
-const divNom = document.getElementsByClassName('nom'); 
-const erreurNom = document.getElementById('erreur-nom');
+
 
 function isFormulaireValid() {
-    if(divNom.validity.valid) {
-        divNom.classList.remove('erreur');
-        erreurNom.innerText = '';
-    }
-    else {
-        divNom.classList.add('erreur');
-        if(divNom.validity.valueMissing) {
-            divNom.innerText = 'Le champs de texte doit être remplis.';
-        }
-        else if(divNom.validity.tooShort) {
-            divNom.innerText = 'Le champs de texte doit contenir au moins 5 caractères.';
-        }
-        else if(divNom.validity.tooLong) {
-            divNom.innerText = 'Le champs de texte doit contenir au maximum 20 caractères.';
-        }
-    }
+   
     // Valiidité les champs de quantité
     if(Array.from(inputsQuantite).every((input) => input.value === '0')) {
         erreur = true;
@@ -39,11 +23,6 @@ function prepareDonnee() {
     })).filter((brique) => parseInt(brique.quantite));
 
     console.log(briques);
-
-    // Récupérer l'id de l'échange auquel on veut faire une proposition
-    const idEchange = form.dataset.idEchange;
-
-    return { idEchange, briques };
 }
 
 form.addEventListener('submit', async (event) => {

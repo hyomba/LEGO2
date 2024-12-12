@@ -5,7 +5,7 @@ const inputNom = document.getElementById('input-nom');
 const inputPrenom = document.getElementById('input-prenom');
 const erreurAuth = document.getElementById('erreur-auth');
 
-/*function isFormulaireValid() {
+function isFormulaireValid() {
     let erreur = false;
 
 
@@ -29,7 +29,7 @@ const erreurAuth = document.getElementById('erreur-auth');
     }
 
     return !erreur;
-}*/
+}
 
 async function inscription(event) {
     event.preventDefault();

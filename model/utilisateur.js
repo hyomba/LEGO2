@@ -19,7 +19,7 @@ export async function getUtilisateurByCourriel(courriel) {
     return utilisateur;
 }
 
-export async function addUtilisateur(courriel,nom,prenom,motdepasse) {
+export async function addUtilisateur(courriel, nom, prenom, motdepasse) {
     const motdepasseHash = await hash(motdepasse, 10);
         const result = await connexion.run(
             `INSERT INTO utilisateur(courriel, nom, prenom, mot_de_passe)
